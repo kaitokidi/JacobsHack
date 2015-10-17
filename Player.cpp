@@ -34,6 +34,16 @@ sf::Vector2f Player::acceleration() const{
 void Player::setAcceleration(const sf::Vector2f &acceleration){
     _acceleration = acceleration;
 }
+float Player::mass() const
+{
+    return _mass;
+}
+
+void Player::setMass(float mass)
+{
+    _mass = mass;
+}
+
 
 
 

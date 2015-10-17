@@ -3,6 +3,7 @@
 
 #include "utils.hpp"
 #include "Scene.hpp"
+#include "Background.hpp"
 
 class Game;
 class SceneRace : public Scene {
@@ -12,13 +13,17 @@ public:
 
 	void update(float deltaTime);
 	void render(sf::RenderTarget* target);
+	void processInput();
 private:
-	//Background _background;
+	Background* _background;
 	// std::vector<Player> _players;
 	// int _nPlayers;
 
 	sf::RectangleShape _rect;
 	sf::IntRect _groundBounds;
+	float _rotation;
+
+	void setRotation(float rotation);
 };
 
 

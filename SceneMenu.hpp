@@ -6,10 +6,19 @@
 
 class Game;
 class SceneMenu : public Scene  {
-public:
-	SceneMenu(Game* g, sf::RenderWindow* w);
-	~SceneMenu();
 
+public:
+    SceneMenu(Game* g, sf::RenderWindow* w);
+    ~SceneMenu();
+
+    void render();
+    void update(float deltaTime);
+    void render(sf::RenderTarget* target);
+
+private:
+
+    Frame _menu;
+    //background;
 };
 
 

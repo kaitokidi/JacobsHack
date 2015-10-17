@@ -22,7 +22,6 @@ public:
     void setAcceleration(const sf::Vector2f &acceleration);
 
 
-
 private:
     float _mass;
     bool _jumping;
