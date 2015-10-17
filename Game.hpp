@@ -4,6 +4,8 @@
 #include "Resources.hpp"
 #include "Scene.hpp"
 #include "utils.hpp"
+#include "SceneMenu.hpp"
+#include "SceneRace.hpp"
 
 class Game {
 public:

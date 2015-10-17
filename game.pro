@@ -11,6 +11,8 @@ SOURCES += main.cpp \
 		Resources.cpp \
 		Game.cpp \
 		Scene.cpp \
+        SceneMenu.cpp \
+        SceneRace.cpp \
         GUI/Button.cpp \
         GUI/Container.cpp \
         GUI/Frame.cpp \
@@ -25,9 +27,11 @@ SOURCES += main.cpp \
         SoundManager.cpp
 
 HEADERS += utils.hpp \
-		Resources.cpp \
-		Game.cpp \
+		Resources.hpp \
+		Game.hpp \
 		Scene.hpp \
+        SceneMenu.hpp \
+        SceneRace.hpp \
         GUI/Button.hpp \
         GUI/Container.hpp \
         GUI/ImgButton.hpp \

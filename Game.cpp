@@ -48,9 +48,9 @@ void Game::changeScene(std::string nextSceneName) { // This will be called by an
 
 
 void Game::loadScenes() {
-    // _scenes.insert(std::make_pair(
-    //         "Menu",
-    //         new SceneMenu(this,&_window)));
+    _scenes.insert(std::make_pair(
+            "Menu",
+            new SceneMenu(this,&_window)));
     // _scenes.insert(std::make_pair(
     //         "Jump",
     //         new SceneRace(this,&_window)));
