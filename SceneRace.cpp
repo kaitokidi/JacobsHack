@@ -53,13 +53,16 @@ void SceneRace::processInput() {
 
 
 void SceneRace::update(float deltaTime) {
-    _background->update(deltaTime);
 	_rotation = (_rotation < 0 ? _rotation + 360 : (_rotation > 360? _rotation - 360 : _rotation) );
 	_speed += 0.5*sin(_rotation*TO_RADIANS)*TO_DEGREES*deltaTime;
 	_speed = std::min(50.0f, std::max(_speed,-50.0f));
-	_rect.move(sf::Vector2f(_speed,0));
-	_rect2.move(sf::Vector2f(_speed,0));
-	_rect3.move(sf::Vector2f(_speed,0));
+    float groundSpeed = _rotation +5;
+    if(_rotation > 90) groundSpeed = 360 - _rotation +5;
+    _rect.move(sf::Vector2f(-groundSpeed,0));
+    _rect2.move(sf::Vector2f(-groundSpeed,0));
+    _rect3.move(sf::Vector2f(-groundSpeed,0));
+    _background->setSpeed(groundSpeed);
+    _background->update(deltaTime);
 	if (_rect.getPosition().x  < -1.5*_view.getSize().x) _rect.move( sf::Vector2f(3*_view.getSize().x,0));
 	else if(_rect.getPosition().x  > 1.5*_view.getSize().x) _rect.move( sf::Vector2f(-3*_view.getSize().x,0));
 	if (_rect2.getPosition().x < -1.5*_view.getSize().x) _rect2.move(sf::Vector2f(3*_view.getSize().x,0));
