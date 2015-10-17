@@ -30,6 +30,7 @@ protected:
     virtual void changeScene(std::string nextScene);
 
     virtual void display();
+
 private: 
     bool _killed;
     std::string _nextSceneName;
