@@ -10,7 +10,7 @@ Scene::Scene(Game* g, sf::RenderWindow* w) :
 Scene::~Scene(){}
 
 
-void Scene::init() {
+void Scene::init(int) {
 
 }
 
@@ -94,8 +94,8 @@ void Scene::initView(sf::Vector2i windowSize) {
     max.x = 1.f - min.x*2;
     max.y = 1.f - min.y*2;
 
-    _view.reset(sf::FloatRect(0,0,windowSize.x,windowSize.y));
-    _view.setViewport(sf::FloatRect(min.x,min.y,max.x,max.y));
+    _view.reset(sf::FloatRect(0,0,windowSize.x*(1+2*min.x),windowSize.y*(1+2*min.y)));
+    // _view.setViewport(sf::FloatRect(min.x,min.y,max.x,max.y));
 }
 
 void Scene::changeScene(std::string nextScene, int players) {

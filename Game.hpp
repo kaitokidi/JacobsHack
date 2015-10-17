@@ -14,7 +14,7 @@ public:
 
     void start();
 
-    void changeScene(std::string sceneName);
+    void changeScene(std::string sceneName, int nPlayers = 0);
 
 private:
     sf::RenderWindow _window;

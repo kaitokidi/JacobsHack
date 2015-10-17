@@ -12,6 +12,7 @@ public:
 	SceneRace(Game* g, sf::RenderWindow* w);
 	~SceneRace();
 
+	void init(int nPlayers);
 	void update(float deltaTime);
 	void render(sf::RenderTarget* target);
 	void processInput();
@@ -21,8 +22,11 @@ private:
 	int _nPlayers;
 
 	sf::RectangleShape _rect;
+	sf::RectangleShape _rect2;
+	sf::RectangleShape _rect3;
 	sf::IntRect _groundBounds;
 	float _rotation;
+	float _speed;
 
 	void setRotation(float rotation);
 };
