@@ -38,7 +38,10 @@ SceneMenu::~SceneMenu() {}
 
 void SceneMenu::update(float deltaTime) {
     //bg.update(deltaTime);
-
+    sf::Event event;
+    while (_window->pollEvent(event)) {
+        _menu.processEvent(event);
+    }
 
 }
 
@@ -48,4 +51,5 @@ void SceneMenu::render() {
 
 void SceneMenu::render(sf::RenderTarget* target) {
     //bg.draw(target)
+    _menu.draw();
 }
