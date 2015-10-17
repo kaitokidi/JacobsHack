@@ -40,7 +40,8 @@ void SceneRace::processInput() {
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {_window->close(); exit(0);}
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            _window->close(); exit(0);
+            std::cout<<"bñasldjasdf"<<std::endl;
+           _game->start();
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
