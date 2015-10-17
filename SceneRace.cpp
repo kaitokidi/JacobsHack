@@ -80,9 +80,26 @@ void SceneRace::update(float deltaTime) {
 		sf::Vector2f acceleration(factor*(destination - _players[i].getPosition().x),2);
 		_players[i].setAcceleration(acceleration);
 		_players[i].update(deltaTime);
+        sf::Vector2f oldPlayerPosition;
+        oldPlayerPosition = _players[i].getPosition();
 		_players[i].move(deltaTime);
 		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) 
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
+
+        for(int p = 0; p < _players.size(); ++p){
+
+            sf::IntRect colision;
+            if(p != i){
+                if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
+                    if(_players[i].velocity().x > 0){
+                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, 0);
+                    }
+                    else {
+                        _players[i].setPosition(colision.left+colision.width, 0);
+                    }
+                }
+            }
+        }
 
 	}
 
