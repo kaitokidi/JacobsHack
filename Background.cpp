@@ -8,9 +8,13 @@ Background::Background(sf::Vector2u targetSize) {
     layers.push_back(Layer(30));
     layers.push_back(Layer(30));
 
-    layers[0].setFactor(1);
-    layers[1].setFactor(2);
-    layers[2].setFactor(2.5);
+    layers[0].setFactor(0.0);
+    layers[1].setFactor(0.5);
+    layers[2].setFactor(1);
+
+    layers[0].setTexture(Resources::layer0,3);
+    layers[1].setTexture(Resources::layer2,3);
+    layers[2].setTexture(Resources::layer1,3);
 
 }
 
@@ -28,7 +32,7 @@ void Background::draw(sf::RenderTarget* target) {
 	//Draw some thiings
     target->draw(_test,_transform);
     //for each layer
-    for(int i; i < layers.size(); ++i){
+    for(int i = 0; i < layers.size(); ++i){
         layers[i].draw(target, &_transform);
     }
     // Draw layers here :D
@@ -36,7 +40,7 @@ void Background::draw(sf::RenderTarget* target) {
 
 void Background::update(float deltaTime){
     //for each layer, update layer
-    for(int i; i < layers.size(); ++i){
+    for(int i = 0; i < layers.size(); ++i){
         layers[i].update(deltaTime);
     }
 }
