@@ -24,12 +24,15 @@ public:
     sf::IntRect getMGlobalBounds();
     sf::IntRect getMBounds();
 
+    sf::Vector2f move(float deltaTime);
+
 
 private:
     float _mass;
     bool _jumping;
     sf::Vector2f _velocity;
     sf::Vector2f _acceleration;
+    sf::Vector2f _lastPosition;
     sf::IntRect _bounds;
 };
 

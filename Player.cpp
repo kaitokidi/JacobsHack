@@ -5,6 +5,7 @@ Player::Player() {
 	setScale(sf::Vector2f(0.0723589,0.0723589));
 	setPosition(30,30);
 	_bounds = sf::IntRect(0,0,50,20);
+	_velocity = sf::Vector2f(0,0);
 }
 
 Player::~Player(){
@@ -12,6 +13,7 @@ Player::~Player(){
 }
 
 void Player::update(float deltatime){
+	// _velocity *= 0.95f;
     _velocity += _acceleration * deltatime;
 }
 
@@ -58,3 +60,8 @@ sf::IntRect Player::getMBounds() {
 	return _bounds;
 }
 
+sf::Vector2f Player::move(float deltaTime) {
+	_lastPosition = getPosition();
+	sf::Sprite::move(_velocity*deltaTime);
+	return getPosition()-_lastPosition;
+}
