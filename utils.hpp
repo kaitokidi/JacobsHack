@@ -25,6 +25,17 @@
 
 #include "SoundManager.hpp"
 
+#include "GUI/Label.hpp"
+#include "GUI/Frame.hpp"
+#include "GUI/Layout.hpp"
+#include "GUI/Widget.hpp"
+#include "GUI/Button.hpp"
+#include "GUI/VLayout.hpp"
+#include "GUI/Container.hpp"
+#include "GUI/ImgButton.hpp"
+#include "GUI/TextButton.hpp"
+#include "GUI/ImgTextButton.hpp"
+
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
