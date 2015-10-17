@@ -29,7 +29,7 @@ void Scene::run() {
         update(timePerFrame.asSeconds());
         display();
         if (_killed) {
-            _game->changeScene(_nextSceneName);
+            _game->changeScene(_nextSceneName,_players);
             _killed = false;
             return;
         }
@@ -101,4 +101,5 @@ void Scene::initView(sf::Vector2i windowSize) {
 void Scene::changeScene(std::string nextScene, int players) {
     _killed = true;
     _nextSceneName = nextScene;
+    _players = players;
 }

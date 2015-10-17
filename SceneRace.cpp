@@ -81,9 +81,10 @@ void SceneRace::update(float deltaTime) {
 		_players[i].setAcceleration(acceleration);
 		_players[i].update(deltaTime);
 		_players[i].move(deltaTime);
-		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) 
+		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
-
+			_players[i].setJumping(false);
+		}
 	}
 
 
