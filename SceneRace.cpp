@@ -53,6 +53,7 @@ void SceneRace::processInput() {
 
 
 void SceneRace::update(float deltaTime) {
+    _background->update(deltaTime);
 	_rotation = (_rotation < 0 ? _rotation + 360 : (_rotation > 360? _rotation - 360 : _rotation) );
 	_speed += 0.5*sin(_rotation*TO_RADIANS)*TO_DEGREES*deltaTime;
 	_speed = std::min(50.0f, std::max(_speed,-50.0f));
@@ -93,18 +94,16 @@ void SceneRace::update(float deltaTime) {
             if(p != i){
                 if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
                     if(_players[i].velocity().x > 0){
-                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, 0);
+                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width,
+                                                _players[i].getPosition().y);
                     }
                     else {
-                        _players[i].setPosition(colision.left+colision.width, 0);
+                        _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
                     }
                 }
             }
         }
 	}
-
-
-
 }
 	
 void SceneRace::render(sf::RenderTarget* target) {
