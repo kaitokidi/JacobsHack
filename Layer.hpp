@@ -6,6 +6,8 @@
 class Layer
 {
     public:
+        Layer();
+
         Layer(float speed);
 
         void setSpeed(float speed);

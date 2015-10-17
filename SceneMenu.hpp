@@ -3,6 +3,7 @@
 
 #include "utils.hpp"
 #include "Scene.hpp"
+#include "Background.hpp"
 
 class Game;
 class SceneMenu : public Scene  {
@@ -18,7 +19,7 @@ public:
 private:
 
     Frame _menu;
-    //background;
+    Background _bg;
 };
 
 
