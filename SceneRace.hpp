@@ -4,6 +4,7 @@
 #include "utils.hpp"
 #include "Scene.hpp"
 #include "Background.hpp"
+#include "Player.hpp"
 
 class Game;
 class SceneRace : public Scene {
@@ -16,8 +17,8 @@ public:
 	void processInput();
 private:
 	Background* _background;
-	// std::vector<Player> _players;
-	// int _nPlayers;
+	std::vector<Player> _players;
+	int _nPlayers;
 
 	sf::RectangleShape _rect;
 	sf::IntRect _groundBounds;
