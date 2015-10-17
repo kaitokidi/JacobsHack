@@ -12,6 +12,10 @@ class Layer
 
         float getSpeed();
 
+        void setFactor(float factor);
+
+        float getFactor();
+
         void setTexture(sf::Texture& texture1, sf::Texture& texture2);
 
         void draw(sf::RenderTarget* renderTarget, sf::Transform* t);
@@ -19,7 +23,7 @@ class Layer
         void update(float deltatime);
 
     private:
-        float _speed;
+        float _speed, _factor;
         sf::Sprite _sprite1;
         sf::Sprite _sprite2;
 };
