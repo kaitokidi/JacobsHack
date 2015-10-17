@@ -34,7 +34,7 @@ protected:
 private: 
     bool _killed;
     std::string _nextSceneName;
-
+    float _players;
 };
 
 #endif

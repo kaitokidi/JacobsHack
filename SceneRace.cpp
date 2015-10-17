@@ -83,9 +83,10 @@ void SceneRace::update(float deltaTime) {
         sf::Vector2f oldPlayerPosition;
         oldPlayerPosition = _players[i].getPosition();
 		_players[i].move(deltaTime);
-		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) 
+		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
-
+            _players[i].setJumping(false);
+        }
         for(int p = 0; p < _players.size(); ++p){
 
             sf::IntRect colision;
@@ -100,7 +101,6 @@ void SceneRace::update(float deltaTime) {
                 }
             }
         }
-
 	}
 
 
