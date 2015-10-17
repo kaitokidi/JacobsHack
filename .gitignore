@@ -28,5 +28,6 @@
 *.app
 game
 Makefile
-game.pro.user
+game.pro.user.*
 *.pro.user
+*.xcf
