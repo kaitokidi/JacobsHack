@@ -25,7 +25,8 @@ SOURCES += main.cpp \
         GUI/VLayout.cpp \
         GUI/HLayout.cpp \
         GUI/Widget.cpp \
-        SoundManager.cpp
+        SoundManager.cpp \
+    Player.cpp
 
 HEADERS += utils.hpp \
         Resources.hpp \
@@ -45,4 +46,5 @@ HEADERS += utils.hpp \
         GUI/HLayout.hpp \
         GUI/Widget.hpp \
         GUI/Frame.hpp \
-        SoundManager.hpp
+        SoundManager.hpp \
+    Player.hpp
