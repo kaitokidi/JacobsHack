@@ -19,6 +19,8 @@ Game::~Game() {
 void Game::start() {
     loadScenes();
 
+    _currentScene = (*_scenes.find("Jump")).second;
+
     while (_currentScene != nullptr) {
         _currentScene->run();
     }
@@ -51,7 +53,7 @@ void Game::loadScenes() {
     _scenes.insert(std::make_pair(
             "Menu",
             new SceneMenu(this,&_window)));
-    // _scenes.insert(std::make_pair(
-    //         "Jump",
-    //         new SceneRace(this,&_window)));
+    _scenes.insert(std::make_pair(
+            "Jump",
+            new SceneRace(this,&_window)));
 }

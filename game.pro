@@ -7,12 +7,13 @@ LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp \
-		utils.cpp \
-		Resources.cpp \
-		Game.cpp \
-		Scene.cpp \
+        utils.cpp \
+        Resources.cpp \
+        Game.cpp \
+        Scene.cpp \
         SceneMenu.cpp \
         SceneRace.cpp \
+        Background.cpp \
         GUI/Button.cpp \
         GUI/Container.cpp \
         GUI/Frame.cpp \
@@ -28,11 +29,12 @@ SOURCES += main.cpp \
     Player.cpp
 
 HEADERS += utils.hpp \
-		Resources.hpp \
-		Game.hpp \
-		Scene.hpp \
+        Resources.hpp \
+        Game.hpp \
+        Scene.hpp \
         SceneMenu.hpp \
         SceneRace.hpp \
+        Background.hpp \
         GUI/Button.hpp \
         GUI/Container.hpp \
         GUI/ImgButton.hpp \
