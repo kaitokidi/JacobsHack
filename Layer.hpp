@@ -14,7 +14,7 @@ class Layer
 
         void setTexture(sf::Texture& texture1, sf::Texture& texture2);
         //states
-        void draw(sf::RenderTarget* renderTarget, );
+        void draw(sf::RenderTarget* renderTarget, sf::Transform* t);
 
         void update();
 

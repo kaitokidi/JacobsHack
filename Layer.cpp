@@ -18,7 +18,7 @@ float Layer::getSpeed(){
     _sprite2.setTexture(texture2);
  }
 
- void Layer::draw(sf::RenderTarget&renderTarget){
-     renderTarget.draw(_sprite1);
-     renderTarget.draw(_sprite2);
+ void Layer::draw(sf::RenderTarget* renderTarget, sf::Transform* t){
+     renderTarget->draw(_sprite1,*t);
+     renderTarget->draw(_sprite2,*t);
  }
