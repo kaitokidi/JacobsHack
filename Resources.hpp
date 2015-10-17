@@ -8,6 +8,7 @@ public:
     static void load();
     //static sf::Texture ...
     //static sf::Shader  DtO;
+    static sf::Texture textureTest;
     static sf::Font pauseMenuFont;
 private:
 
