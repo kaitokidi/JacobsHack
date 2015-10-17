@@ -50,6 +50,6 @@ void SceneMenu::render() {
 }
 
 void SceneMenu::render(sf::RenderTarget* target) {
-    //bg.draw(target)
+    _bg.draw(target);
     _menu.draw();
 }

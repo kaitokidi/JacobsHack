@@ -1,5 +1,9 @@
 #include "Layer.hpp"
 
+Layer::Layer() {
+    _speed = 0;
+}
+
 Layer::Layer(float speed) {
     _speed = speed;
 }
