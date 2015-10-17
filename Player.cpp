@@ -1,6 +1,9 @@
 #include "Player.hpp"
 
 Player::Player() {
+	setTexture(Resources::penguin);
+	setScale(sf::Vector2f(0.0723589,0.0723589));
+	setPosition(30,30);
 }
 
 Player::~Player(){

@@ -27,7 +27,7 @@ protected:
     void render();
     virtual void render(sf::RenderTarget* target);
     void initView(sf::Vector2i windowSize);
-    virtual void changeScene(std::string nextScene);
+    virtual void changeScene(std::string nextScene, int players);
 
     virtual void display();
 

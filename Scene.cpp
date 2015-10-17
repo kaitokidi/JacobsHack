@@ -98,7 +98,7 @@ void Scene::initView(sf::Vector2i windowSize) {
     _view.setViewport(sf::FloatRect(min.x,min.y,max.x,max.y));
 }
 
-void Scene::changeScene(std::string nextScene) {
+void Scene::changeScene(std::string nextScene, int players) {
     _killed = true;
     _nextSceneName = nextScene;
 }
