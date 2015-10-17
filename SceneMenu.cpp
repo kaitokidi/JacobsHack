@@ -12,29 +12,29 @@ SceneMenu::SceneMenu(Game* g, sf::RenderWindow* w) : Scene(g,w),_menu(*w) {
     layout->setSpace(5);
 
     TextButton* resB;
-    resB = new TextButton("Play Solo", Resources::pauseMenuFont);
+    resB = new TextButton("     Play Solo", Resources::pauseMenuFont);
     resB->onClick = [this](const sf::Event&, Button&){ changeScene("Jump", 1); };
 
     TextButton* resB2;
-    resB2 = new TextButton("Play 1v1", Resources::pauseMenuFont);
+    resB2 = new TextButton("     Play 1v1", Resources::pauseMenuFont);
     resB2->onClick = [this](const sf::Event&, Button&){ changeScene("Jump", 2); };
 
     TextButton* resB3;
-    resB3 = new TextButton("Play Three", Resources::pauseMenuFont);
+    resB3 = new TextButton("     Play Three", Resources::pauseMenuFont);
     resB3->onClick = [this](const sf::Event&, Button&){ changeScene("Jump", 3); };
 
     TextButton* resB4;
-    resB4 = new TextButton("Play Four", Resources::pauseMenuFont);
+    resB4 = new TextButton("     Play Four", Resources::pauseMenuFont);
     resB4->onClick = [this](const sf::Event&, Button&){ changeScene("Jump", 4); };
 
     TextButton* exitB;
-    exitB = new TextButton("Exit", Resources::pauseMenuFont);
+    exitB = new TextButton("     Exit", Resources::pauseMenuFont);
     exitB->onClick = [this](const sf::Event&, Button&){ exit(0); };
-    layout->add(exitB);
     layout->add(resB);
     layout->add(resB2);
     layout->add(resB3);
     layout->add(resB4);
+    layout->add(exitB);
     _menu.setLayout(layout);
 
 }

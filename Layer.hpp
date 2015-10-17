@@ -18,7 +18,7 @@ class Layer
 
         float getFactor();
 
-        void setTexture(sf::Texture& texture1, sf::Texture& texture2);
+        void setTexture(sf::Texture& texture1, int qtty);/*, sf::Texture& texture2);*/
 
         void draw(sf::RenderTarget* renderTarget, sf::Transform* t);
 
@@ -26,8 +26,9 @@ class Layer
 
     private:
         float _speed, _factor;
-        sf::Sprite _sprite1;
-        sf::Sprite _sprite2;
+        std::vector<sf::Sprite> _sprites;
+//        sf::Sprite _sprite1;
+//        sf::Sprite _sprite2;
 };
 
 #endif // LAYER_HPP

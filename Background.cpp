@@ -8,13 +8,13 @@ Background::Background(sf::Vector2u targetSize) {
     layers.push_back(Layer(30));
     layers.push_back(Layer(30));
 
-    layers[0].setFactor(1);
-    layers[1].setFactor(2);
-    layers[2].setFactor(2.5);
+    layers[0].setFactor(0.0);
+    layers[1].setFactor(0.5);
+    layers[2].setFactor(1);
 
-    layers[0].setTexture(Resources::layer0, Resources::layer0);
-    layers[1].setTexture(Resources::layer0, Resources::layer0);
-    layers[2].setTexture(Resources::layer0, Resources::layer0);
+    layers[0].setTexture(Resources::layer0,3);
+    layers[1].setTexture(Resources::layer2,3);
+    layers[2].setTexture(Resources::layer1,3);
 
 }
 

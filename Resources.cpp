@@ -11,9 +11,13 @@ sf::Texture             Resources::penguin2;
 sf::Texture             Resources::penguin3;
 sf::Texture             Resources::penguin4;
 sf::Texture             Resources::layer0;
+sf::Texture             Resources::layer1;
+sf::Texture             Resources::layer2;
 
 void Resources::load() {
     layer0.loadFromFile(TEXTURETPATH+std::string("layer0.png"));
+    layer1.loadFromFile(TEXTURETPATH+std::string("layer1.png"));
+    layer2.loadFromFile(TEXTURETPATH+std::string("layer2.png"));
     textureTest.loadFromFile(TEXTURETPATH+std::string("textureTest.png"));
     penguin.loadFromFile(TEXTURETPATH+std::string("paintedpenguin.png"));
     penguin1.loadFromFile(TEXTURETPATH+std::string("penguin1.png"));

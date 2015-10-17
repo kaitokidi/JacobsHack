@@ -25,37 +25,59 @@ float Layer::getFactor(){
 }
 
 
-void Layer::setTexture(sf::Texture& texture1, sf::Texture& texture2){
-    _sprite1.setTexture(texture1);
-    _sprite2.setTexture(texture2);
-    _sprite1.setPosition(sf::Vector2f(0,0));
-    _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+void Layer::setTexture(sf::Texture& texture1, int qtty ){ //, sf::Texture& texture2){
+    for(int i = 0; i < qtty; ++i){
+        sf::Sprite s;
+        s.setTexture(texture1);
+        _sprites.push_back(s);
+    }
+    //_sprite1.setTexture(texture1);
+    //_sprite2.setTexture(texture2);
+
+    for(int i = 0; i < _sprites.size(); ++i){
+        _sprites[i].setPosition(sf::Vector2f(_sprites[i].getGlobalBounds().width*-i,0));
+    }
+    //_sprite1.setPosition(sf::Vector2f(0,0));
+    //_sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
 }
 
 void Layer::update(float deltatime){
     float movement;
     movement = _speed*_factor*deltatime;
-    _sprite1.move(movement,0);
-    _sprite2.move(movement,0);
+    for(int i = 0; i < _sprites.size(); ++i){
+        _sprites[i].move(movement,0);
+    }
+    //_sprite1.move(movement,0);
+    //_sprite2.move(movement,0);
     if(_speed < 0){
+        for(int i = 0; i < _sprites.size(); ++i){
+            if(_sprites[i].getPosition().x <= -1*(_sprites[i].getGlobalBounds().width)){
+                _sprites[i].setPosition(sf::Vector2f((_sprites[i].getGlobalBounds().width)*(_sprites.size()-1),0));
+            }
+        }
+
+        /*
         if(_sprite1.getPosition().x <= -1*(_sprite1.getGlobalBounds().width)){
             _sprite1.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
         }
         else if(_sprite2.getPosition().x < -1*(_sprite2.getGlobalBounds().width)){
            _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
         }
+        */
     }
     else if (_speed > 0){
-        if(_sprite1.getPosition().x >= (_sprite1.getGlobalBounds().width)){
-            _sprite1.setPosition(sf::Vector2f(-1*(_sprite1.getGlobalBounds().width),0));
-        }
-        else if(_sprite2.getPosition().x > (_sprite2.getGlobalBounds().width)){
-           _sprite2.setPosition(sf::Vector2f(-1*(_sprite1.getGlobalBounds().width),0));
+        for(int i = 0; i < _sprites.size(); ++i){
+            if(_sprites[i].getPosition().x >= (_sprites[i].getGlobalBounds().width)){
+                _sprites[i].setPosition(sf::Vector2f(-1*(_sprites[i].getGlobalBounds().width)*(_sprites.size()-1),0));
+            }
         }
     }
 }
 
  void Layer::draw(sf::RenderTarget* renderTarget, sf::Transform* t){
-     renderTarget->draw(_sprite1,*t);
-     renderTarget->draw(_sprite2,*t);
+     /*renderTarget->draw(_sprite1,*t);
+     renderTarget->draw(_sprite2,*t);*/
+     for(int i = 0; i < _sprites.size(); ++i){
+         renderTarget->draw(_sprites[i], *t);
+     }
  }
