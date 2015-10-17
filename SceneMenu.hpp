@@ -19,7 +19,7 @@ public:
 private:
 
     Frame _menu;
-    Background _bg;
+    Background* _bg;
 };
 
 

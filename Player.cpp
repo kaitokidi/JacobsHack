@@ -4,6 +4,7 @@ Player::Player() {
 	setTexture(Resources::penguin);
 	setScale(sf::Vector2f(0.0723589,0.0723589));
 	setPosition(30,30);
+	_bounds = sf::IntRect(0,0,50,20);
 }
 
 Player::~Player(){
@@ -48,6 +49,12 @@ void Player::setMass(float mass)
 }
 
 
+sf::IntRect Player::getMGlobalBounds() {
+	return sf::IntRect(getPosition().x + _bounds.left, getPosition().y + _bounds.top, _bounds.width, _bounds.height);
+}
+    
 
-
+sf::IntRect Player::getMBounds() {
+	return _bounds;
+}
 

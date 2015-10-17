@@ -21,12 +21,16 @@ public:
     void setVelocity(const sf::Vector2f &velocity);
     void setAcceleration(const sf::Vector2f &acceleration);
 
+    sf::IntRect getMGlobalBounds();
+    sf::IntRect getMBounds();
+
 
 private:
     float _mass;
     bool _jumping;
     sf::Vector2f _velocity;
     sf::Vector2f _acceleration;
+    sf::IntRect _bounds;
 };
 
 #endif // PLAYER_HPP

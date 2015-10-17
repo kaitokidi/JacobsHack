@@ -11,7 +11,7 @@ public:
     Scene(Game* g, sf::RenderWindow* w);
     virtual ~Scene();
 
-    virtual void init();
+    virtual void init(int=0);
     void run();
     void killScene();
 

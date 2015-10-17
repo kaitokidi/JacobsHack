@@ -29,7 +29,7 @@ void Game::start() {
 }
 
 
-void Game::changeScene(std::string nextSceneName) { // This will be called by any scene when something trigers to change to anothe scene
+void Game::changeScene(std::string nextSceneName, int nPlayers) { // This will be called by any scene when something trigers to change to anothe scene
     std::string sceneName = nextSceneName;
     if (_currentScene != nullptr) {
         _lastScene = _currentScene;
@@ -44,8 +44,9 @@ void Game::changeScene(std::string nextSceneName) { // This will be called by an
     
     std::cout << "Changing to scene " << sceneName << std::endl;
 
-    _currentScene = aux;  
-    _currentScene->init();    
+    _currentScene = aux;
+    if (nextSceneName == "Jump") _currentScene->init(nPlayers);   
+    else _currentScene->init();    
 }
 
 
