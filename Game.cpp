@@ -19,7 +19,7 @@ Game::~Game() {
 void Game::start() {
     loadScenes();
 
-    _currentScene = (*_scenes.find("Jump")).second;
+    _currentScene = (*_scenes.find("Menu")).second;
 
     while (_currentScene != nullptr) {
         _currentScene->run();
