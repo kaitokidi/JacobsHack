@@ -1,8 +1,7 @@
 #include "Layer.hpp"
 
-Layer::Layer()
-{
-
+Layer::Layer(float speed) {
+    _speed = speed;
 }
 
 void Layer::setSpeed(float speed){
@@ -13,10 +12,25 @@ float Layer::getSpeed(){
     return _speed;
 }
 
- void Layer::setTexture(sf::Texture& texture1, sf::Texture& texture2){
+void Layer::setTexture(sf::Texture& texture1, sf::Texture& texture2){
     _sprite1.setTexture(texture1);
     _sprite2.setTexture(texture2);
- }
+    _sprite1.setPosition(sf::Vector2f(0,0));
+    _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+}
+
+void Layer::update(float deltatime){
+    float movement;
+    movement = _speed*deltatime;
+    _sprite1.move(movement,0);
+    _sprite2.move(movement,0);
+    if(_sprite1.getPosition().x < -1*(_sprite1.getGlobalBounds().width)){
+        _sprite1.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+    }
+    else if(_sprite2.getPosition().x < -1*(_sprite2.getGlobalBounds().width)){
+       _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+    }
+}
 
  void Layer::draw(sf::RenderTarget* renderTarget, sf::Transform* t){
      renderTarget->draw(_sprite1,*t);
