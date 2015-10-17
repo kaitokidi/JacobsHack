@@ -9,7 +9,7 @@ SceneMenu::SceneMenu(Game* g, sf::RenderWindow* w) : Scene(g,w),_menu(*w) {
     _bg = new Background(displayResolution);
 
     VLayout* layout = new VLayout;
-    layout->setSpace(25);
+    layout->setSpace(5);
 
     TextButton* resB;
     resB = new TextButton("Play Solo", Resources::pauseMenuFont);
@@ -43,13 +43,15 @@ SceneMenu::~SceneMenu() {
     delete _bg;
 }
 
-void SceneMenu::update(float deltaTime) {
-    //bg.update(deltaTime);
+void SceneMenu::processInput() {
     sf::Event event;
     while (_window->pollEvent(event)) {
         _menu.processEvent(event);
     }
+}
 
+void SceneMenu::update(float deltaTime) {
+    _bg->update(deltaTime);
 }
 
 void SceneMenu::render() {
@@ -58,5 +60,8 @@ void SceneMenu::render() {
 
 void SceneMenu::render(sf::RenderTarget* target) {
     _bg->draw(target);
+
+    target->setView(target->getDefaultView());
     _menu.draw();
+    target->setView(_view);
 }

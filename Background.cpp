@@ -32,7 +32,7 @@ void Background::draw(sf::RenderTarget* target) {
 	//Draw some thiings
     target->draw(_test,_transform);
     //for each layer
-    for(int i; i < layers.size(); ++i){
+    for(int i = 0; i < layers.size(); ++i){
         layers[i].draw(target, &_transform);
     }
     // Draw layers here :D
@@ -40,7 +40,7 @@ void Background::draw(sf::RenderTarget* target) {
 
 void Background::update(float deltaTime){
     //for each layer, update layer
-    for(int i; i < layers.size(); ++i){
+    for(int i = 0; i < layers.size(); ++i){
         layers[i].update(deltaTime);
     }
 }
