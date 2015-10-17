@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include "utils.hpp"
+#include "Resources.hpp"
 
 class Player : public sf::Sprite{
 
@@ -10,7 +11,6 @@ public:
     ~Player();
 
     void update(float deltatime);
-
     bool jumping() const;
     void setJumping(bool jumping);
 
