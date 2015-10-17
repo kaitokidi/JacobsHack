@@ -37,11 +37,21 @@ void Layer::update(float deltatime){
     movement = _speed*_factor*deltatime;
     _sprite1.move(movement,0);
     _sprite2.move(movement,0);
-    if(_sprite1.getPosition().x < -1*(_sprite1.getGlobalBounds().width)){
-        _sprite1.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+    if(_speed < 0){
+        if(_sprite1.getPosition().x <= -1*(_sprite1.getGlobalBounds().width)){
+            _sprite1.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+        }
+        else if(_sprite2.getPosition().x < -1*(_sprite2.getGlobalBounds().width)){
+           _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+        }
     }
-    else if(_sprite2.getPosition().x < -1*(_sprite2.getGlobalBounds().width)){
-       _sprite2.setPosition(sf::Vector2f(_sprite1.getGlobalBounds().width,0));
+    else if (_speed > 0){
+        if(_sprite1.getPosition().x >= (_sprite1.getGlobalBounds().width)){
+            _sprite1.setPosition(sf::Vector2f(-1*(_sprite1.getGlobalBounds().width),0));
+        }
+        else if(_sprite2.getPosition().x > (_sprite2.getGlobalBounds().width)){
+           _sprite2.setPosition(sf::Vector2f(-1*(_sprite1.getGlobalBounds().width),0));
+        }
     }
 }
 
