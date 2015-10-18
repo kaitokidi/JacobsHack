@@ -13,8 +13,10 @@ sf::Texture             Resources::penguin4;
 sf::Texture             Resources::layer0;
 sf::Texture             Resources::layer1;
 sf::Texture             Resources::layer2;
+sf::Texture             Resources::ice;
 
 void Resources::load() {
+    ice.loadFromFile(TEXTURETPATH+std::string("ice.png"));
     layer0.loadFromFile(TEXTURETPATH+std::string("layer0.png"));
     layer1.loadFromFile(TEXTURETPATH+std::string("layer1.png"));
     layer2.loadFromFile(TEXTURETPATH+std::string("layer2.png"));

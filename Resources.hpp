@@ -8,6 +8,7 @@ public:
     static void load();
     //static sf::Texture ...
     //static sf::Shader  DtO;
+    static sf::Texture ice;
     static sf::Texture layer0;
     static sf::Texture layer1;
     static sf::Texture layer2;

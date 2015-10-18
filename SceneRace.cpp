@@ -28,13 +28,17 @@ SceneRace::SceneRace(Game* g, sf::RenderWindow* w) : Scene(g,w) {
 
 	_rect.setSize(sf::Vector2f(displayResolution.x, displayResolution.y));
 	_rect.setPosition(sf::Vector2f(-0.5*displayResolution.x,displayResolution.y*3.0/4.0));
-	_rect.setFillColor(sf::Color::Yellow);
+    //_rect.setFillColor(sf::Color::Yellow);
 	_rect2.setSize(sf::Vector2f(displayResolution.x, displayResolution.y));
-	_rect2.setPosition(sf::Vector2f(0.5*displayResolution.x,displayResolution.y*3.0/4.0));
-	_rect2.setFillColor(sf::Color::Red);
+    _rect2.setPosition(sf::Vector2f(0.5*displayResolution.x-1,displayResolution.y*3.0/4.0));
+    //_rect2.setFillColor(sf::Color::Red);
 	_rect3.setSize(sf::Vector2f(displayResolution.x, displayResolution.y));
-	_rect3.setPosition(sf::Vector2f(1.5*displayResolution.x,displayResolution.y*3.0/4.0));
-	_rect3.setFillColor(sf::Color::Blue);
+    _rect3.setPosition(sf::Vector2f(1.5*displayResolution.x-1,displayResolution.y*3.0/4.0));
+    //_rect3.setFillColor(sf::Color::Blue);
+
+    _rect.setTexture(&Resources::ice, true);
+    _rect2.setTexture(&Resources::ice, true);
+    _rect3.setTexture(&Resources::ice, true);
 
 	_groundBounds = sf::IntRect(0,displayResolution.y*3.0/4.0,displayResolution.x, displayResolution.y/4.0);
 }
@@ -119,7 +123,7 @@ void SceneRace::update(float deltaTime) {
                 + _players[i].mass()*0.8*(1- _players[i].getPosition().x/640) *(-1*rot)
                 ;
         newSpeed *= 10;
-		if(_players[i].jumping())newSpeed*=0.8;
+        if(_players[i].jumping())newSpeed*=0.6;
         newSpeed *= deltaTime;
 
 
