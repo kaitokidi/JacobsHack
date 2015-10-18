@@ -27,7 +27,8 @@ SOURCES += main.cpp \
         GUI/Widget.cpp \
         SoundManager.cpp \
     Player.cpp \
-    Layer.cpp
+    Layer.cpp \
+    Portada.cpp
 
 HEADERS += utils.hpp \
         Resources.hpp \
@@ -49,4 +50,5 @@ HEADERS += utils.hpp \
         GUI/Frame.hpp \
         SoundManager.hpp \
     Player.hpp \
-    Layer.hpp
+    Layer.hpp \
+    Portada.hpp
