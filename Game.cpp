@@ -3,6 +3,7 @@
 Game::Game() : _window(sf::VideoMode::getDesktopMode(),"TOPKeK") {
 
     Portada portada;
+    portada.display(&_window, "Resources/Textures/portada.png");
     portada.display(&_window, "Resources/Textures/BEST.png");
     _window.setFramerateLimit(FRAMERATE);
     Resources::load();
