@@ -16,6 +16,12 @@ SceneRace::SceneRace(Game* g, sf::RenderWindow* w) : Scene(g,w) {
     _players[2].setTexture(Resources::penguin3);
     _players[3].setTexture(Resources::penguin4);
 
+    _players[0].setMass(80);
+    _players[1].setMass(60);
+    _players[2].setMass(40);
+    _players[3].setMass(20);
+
+
 	// for (int i = 0; i < _nPlayers; ++i) _players[i].setPosition(i*40,40);
 	_background = new Background(displayResolution);
 
@@ -136,17 +142,17 @@ void SceneRace::update(float deltaTime) {
             sf::IntRect colision;
             if(p != i){
                 if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
-                    if(_players[i].velocity().y > 0){
+                    if(_players[i].velocity().y > 0 && _players[i].velocity().y > _players[p].velocity().y){
                         _players[i].setPosition(_players[i].getPosition().x, colision.top-_players[i].getMGlobalBounds().height);
                     }
-                    else if(_players[i].velocity().y < 0){
+                    else if(_players[i].velocity().y < 0 && _players[i].velocity().y < _players[p].velocity().y){
                         _players[i].setPosition(_players[i].getPosition().x, colision.top + colision.height);
                     }
-                    else if(_players[i].velocity().x > 0){
+                    else if(_players[i].velocity().x > 0 && _players[i].velocity().x > _players[p].velocity().x ){
                         _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, _players[i].getPosition().y);
                         //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
                     }
-                    else {
+                    else if(_players[i].velocity().x < 0 && _players[i].velocity().x < _players[p].velocity().x ){
                         _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
                         //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
                     }
