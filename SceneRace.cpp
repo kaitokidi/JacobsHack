@@ -144,11 +144,11 @@ void SceneRace::update(float deltaTime) {
                     }
                     else if(_players[i].velocity().x > 0){
                         _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, _players[i].getPosition().y);
-                        _players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
+                        //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
                     }
                     else {
                         _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
-                        _players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
+                        //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
                     }
                 }
             }

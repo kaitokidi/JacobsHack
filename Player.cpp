@@ -4,13 +4,18 @@ Player::Player() {
 	setTexture(Resources::penguin);
 	setScale(sf::Vector2f(0.0723589,0.0723589));
 	setPosition(30,30);
-	_bounds = sf::IntRect(0,0,50,20);
+    _bounds = sf::FloatRect(0,0,50,20);
 	_velocity = sf::Vector2f(0,0);
     _mass = 40;
 }
 
 Player::~Player(){
 
+}
+
+void Player::setTexture(const sf::Texture &texture){
+    Sprite::setTexture(texture, true);
+    //_bounds = getGlobalBounds();
 }
 
 void Player::update(float deltatime){
@@ -53,11 +58,11 @@ void Player::setMass(float mass)
 
 
 sf::IntRect Player::getMGlobalBounds() {
-	return sf::IntRect(getPosition().x + _bounds.left, getPosition().y + _bounds.top, _bounds.width, _bounds.height);
+    return sf::IntRect(getPosition().x + _bounds.left, getPosition().y + _bounds.top, _bounds.width, _bounds.height);
 }
     
 
-sf::IntRect Player::getMBounds() {
+sf::FloatRect Player::getMBounds() {
 	return _bounds;
 }
 
