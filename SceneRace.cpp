@@ -41,7 +41,8 @@ void SceneRace::processInput() {
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {_window->close(); exit(0);}
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            _window->close(); exit(0);
+            std::cout<<"bñasldjasdf"<<std::endl;
+           _game->start();
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
@@ -54,6 +55,7 @@ void SceneRace::processInput() {
 
 
 void SceneRace::update(float deltaTime) {
+    _background->update(deltaTime);
 	_rotation = (_rotation < 0 ? _rotation + 360 : (_rotation > 360? _rotation - 360 : _rotation) );
 	_speed += 0.5*sin(_rotation*TO_RADIANS)*TO_DEGREES*deltaTime;
 	_speed = std::min(50.0f, std::max(_speed,-50.0f));
@@ -79,10 +81,22 @@ void SceneRace::update(float deltaTime) {
 			_players[i].setJumping(false);
 
 		}
+        for(int p = 0; p < _players.size(); ++p){
+
+            sf::IntRect colision;
+            if(p != i){
+                if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
+                    if(_players[i].velocity().x > 0){
+                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width,
+                                                _players[i].getPosition().y);
+                    }
+                    else {
+                        _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
+                    }
+                }
+            }
+        }
 	}
-
-
-
 }
 	
 void SceneRace::render(sf::RenderTarget* target) {
