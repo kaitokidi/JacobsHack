@@ -16,13 +16,13 @@ SceneRace::SceneRace(Game* g, sf::RenderWindow* w) : Scene(g,w) {
     _players[2].setTexture(Resources::penguin3);
     _players[3].setTexture(Resources::penguin4);
 
-    _players[0].setMass(80);
-    _players[1].setMass(60);
-    _players[2].setMass(40);
-    _players[3].setMass(20);
+    _players[0].setMass(180);
+    _players[1].setMass(160);
+    _players[2].setMass(140);
+    _players[3].setMass(120);
 
 
-	// for (int i = 0; i < _nPlayers; ++i) _players[i].setPosition(i*40,40);
+	for (int i = 0; i < _nPlayers; ++i) _players[i].setPosition((i+1)*60,40);
 	_background = new Background(displayResolution);
 
 
@@ -53,8 +53,7 @@ void SceneRace::processInput() {
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {_window->close(); exit(0);}
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            std::cout<<"bñasldjasdf"<<std::endl;
-           _game->start();
+           changeScene("Menu",0);
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
@@ -64,16 +63,17 @@ void SceneRace::processInput() {
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
             //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
-            _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, 0));
-            _players[0].setAcceleration(sf::Vector2f(0,-200000));
+            if (_players[0].jumping()) continue;
+            std::cout << "salta" << std::endl;
+            _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -200));
             _players[0].setJumping(true);
 
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
             if(_nPlayers >= 1) {
 //                _players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, -50));
-                _players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, 0));
-                _players[1].setAcceleration(sf::Vector2f(0,-200000));
+            	if (_players[1].jumping()) continue;
+                _players[1].setVelocity(sf::Vector2f(_players[0].velocity().x, -200));
                 _players[1].setJumping(true);
             }
         }
@@ -118,16 +118,14 @@ void SceneRace::update(float deltaTime) {
                 - _players[i].mass()*0.2
                 + _players[i].mass()*0.8*(1- _players[i].getPosition().x/640) *(-1*rot)
                 ;
-        newSpeed *= 10;
+        newSpeed *= 0.1;
 		if(_players[i].jumping())newSpeed*=0.8;
-        newSpeed *= deltaTime;
-
+        // newSpeed *= deltaTime;
 
         float velY = _players[i].velocity().y + _players[i].acceleration().y * deltaTime;
-        _players[i].setAcceleration(sf::Vector2f(0, _players[i].acceleration().y + _players[i].mass()*2222 * deltaTime));
-
-        _players[i].setVelocity(sf::Vector2f(newSpeed,velY*deltaTime));
-		_players[i].move(deltaTime);
+        _players[i].setAcceleration(sf::Vector2f(0, 1*_players[i].mass()));
+        _players[i].setVelocity(sf::Vector2f(newSpeed,velY));
+        _players[i].move(deltaTime);
 		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
 			_players[i].setJumping(false);
@@ -137,26 +135,53 @@ void SceneRace::update(float deltaTime) {
             _players[i].setPosition(-200, _players[i].getPosition().y);
             _players[i].setVelocity(sf::Vector2f(0,0));
         }
-        for(int p = 0; p < _players.size(); ++p){
+        sf::FloatRect a = _players[i].getMGlobalBounds();
+        Player &p1 = _players[i];
+        for(int p = i+1; p < _nPlayers; ++p){
+        	Player &p2 = _players[p];
+        	// if (p == i) continue;
+            sf::FloatRect c;
+        	sf::FloatRect b = p2.getMGlobalBounds();
+            if(a.intersects(b, c)) {
+            	std::cout << c.left << " " << c.top << " " << c.width << " " << c.height << std::endl;
+            	if (c.width < c.height) {
+            		if (p1.getPosition().x < p2.getPosition().x) {
+            			p1.setPosition(p1.getPosition().x-c.width/2,p1.getPosition().y);
+            			p2.setPosition(p2.getPosition().x+c.width/2,p2.getPosition().y);
+            		}
+            		else {
+            			p1.setPosition(p1.getPosition().x+c.width/2,p1.getPosition().y);
+            			p2.setPosition(p2.getPosition().x-c.width/2,p2.getPosition().y);
+            		}
+            	}
+            	else {
+            		if (p1.getPosition().y < p2.getPosition().y) {
+            			p1.setPosition(p1.getPosition().x,p1.getPosition().y-c.height);
+            			p1.setJumping(false);
+            			p2.setPosition(p2.getPosition().x,p2.getPosition().y);
+            		}
+            		else {
+            			p1.setPosition(p1.getPosition().x,p1.getPosition().y);
+            			p2.setPosition(p2.getPosition().x,p2.getPosition().y-c.height);
+            			p2.setJumping(false);
+            		}
+            	}
 
-            sf::IntRect colision;
-            if(p != i){
-                if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
-                    if(_players[i].velocity().y > 0 && _players[i].velocity().y > _players[p].velocity().y){
-                        _players[i].setPosition(_players[i].getPosition().x, colision.top-_players[i].getMGlobalBounds().height);
-                    }
-                    else if(_players[i].velocity().y < 0 && _players[i].velocity().y < _players[p].velocity().y){
-                        _players[i].setPosition(_players[i].getPosition().x, colision.top + colision.height);
-                    }
-                    else if(_players[i].velocity().x > 0 && _players[i].velocity().x > _players[p].velocity().x ){
-                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, _players[i].getPosition().y);
-                        //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
-                    }
-                    else if(_players[i].velocity().x < 0 && _players[i].velocity().x < _players[p].velocity().x ){
-                        _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
-                        //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
-                    }
-                }
+
+                // if(_players[i].velocity().y > 0 && _players[i].velocity().y > _players[p].velocity().y){
+                //     _players[i].setPosition(_players[i].getPosition().x, colision.top-_players[i].getMGlobalBounds().height);
+                // }
+                // else if(_players[i].velocity().y < 0 && _players[i].velocity().y < _players[p].velocity().y){
+                //     _players[i].setPosition(_players[i].getPosition().x, colision.top + colision.height);
+                // }
+                // else if(_players[i].velocity().x > 0 && _players[i].velocity().x > _players[p].velocity().x ){
+                //     _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, _players[i].getPosition().y);
+                //     //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
+                // }
+                // else if(_players[i].velocity().x < 0 && _players[i].velocity().x < _players[p].velocity().x ){
+                //     _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
+                //     //_players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
+                // }
             }
         }
 	}
@@ -176,4 +201,159 @@ void SceneRace::setRotation(float rotation) {
 	_rotation = rotation;
 	_background->setRotation(_rotation);
     _view.setRotation(_rotation);
+}
+
+float SceneRace::SweptAABB(Player* p1, Player* p2, float& normalx, float& normaly) {
+	sf::Vector2f p1v = p1->velocity();
+	sf::Vector2f p2v = p2->velocity();
+	sf::FloatRect b1 = p1->getMGlobalBounds();
+	sf::FloatRect b2 = p2->getMGlobalBounds();
+
+
+	// float xInvEntry, yInvEntry;
+ //    float xInvExit, yInvExit;
+
+ //    // find the distance between the objects on the near and far sides for both x and y
+ //    if (p1v.x > p2v.x)
+ //    {
+ //        xInvEntry = b2.left - (b1.left + b1.width);
+ //        xInvExit = (b2.left + b2.left) - b1.left;
+ //    }
+ //    else 
+ //    {
+ //        xInvEntry = (b2.left + b2.left) - b1.left;
+ //        xInvExit = b2.left - (b1.left + b1.width);
+ //    }
+
+ //    if (p1v.y > p2v.y)
+ //    {
+ //        yInvEntry = b2.top - (b1.top + b1.height);
+ //        yInvExit = (b2.top + b2.height) - b1.top;
+ //    }
+ //    else
+ //    {
+ //        yInvEntry = (b2.top + b2.height) - b1.top;
+ //        yInvExit = b2.top - (b1.top + b1.height);
+ //    }
+
+ //    float xEntry, yEntry;
+ //    float xExit, yExit;
+
+ //    if (std::abs(p1v.x - p2v.x) == 0.0f)
+ //    {
+ //        xEntry = -std::numeric_limits<float>::infinity();
+ //        xExit = std::numeric_limits<float>::infinity();
+ //    }
+ //    else
+ //    {
+ //        xEntry = xInvEntry / p1v.x;
+ //        xExit = xInvExit / p1v.x;
+ //    }
+
+ //    if (std::abs(p1v.y - p2v.y) == 0.0f)
+ //    {
+ //        yEntry = -std::numeric_limits<float>::infinity();
+ //        yExit = std::numeric_limits<float>::infinity();
+ //    }
+ //    else
+ //    {
+ //        yEntry = yInvEntry / p1v.y;
+ //        yExit = yInvExit / p1v.y;
+ //    }
+	float xInvEntry, yInvEntry;
+    float xInvExit, yInvExit;
+
+    // find the distance between the objects on the near and far sides for both x and y
+    if (p1v.x > 0.0f)
+    {
+        xInvEntry = b2.left - (b1.left + b1.width);
+        xInvExit = (b2.left + b2.width) - b1.left;
+    }
+    else 
+    {
+        xInvEntry = (b2.left + b2.width) - b1.left;
+        xInvExit = b2.left - (b1.left + b1.width);
+    }
+
+    if (p1v.y > 0.0f)
+    {
+        yInvEntry = b2.top - (b1.top + b1.height);
+        yInvExit = (b2.top + b2.height) - b1.top;
+    }
+    else
+    {
+        yInvEntry = (b2.top + b2.height) - b1.top;
+        yInvExit = b2.top - (b1.top + b1.height);
+    }
+
+    // find time of collision and time of leaving for each axis (if statement is to prevent divide by zero)
+    float xEntry, yEntry;
+    float xExit, yExit;
+
+    if (p1v.x == 0.0f)
+    {
+        xEntry = -std::numeric_limits<float>::infinity();
+        xExit = std::numeric_limits<float>::infinity();
+    }
+    else
+    {
+        xEntry = xInvEntry / p1v.x;
+        xExit = xInvExit / p1v.x;
+    }
+
+    if (p1v.y == 0.0f)
+    {
+        yEntry = -std::numeric_limits<float>::infinity();
+        yExit = std::numeric_limits<float>::infinity();
+    }
+    else
+    {
+        yEntry = yInvEntry / p1v.y;
+        yExit = yInvExit / p1v.y;
+    }
+
+    // find the earliest/latest times of collision
+    float entryTime = std::max(xEntry, yEntry);
+    float exitTime = std::min(xExit, yExit);
+
+    // if there was no collision
+    if (entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f)
+    {
+        normalx = 0.0f;
+        normaly = 0.0f;
+        return 1.0f;
+    }
+    else // if there was a collision
+    {        		
+        // calculate normal of collided surface
+        if (xEntry > yEntry)
+        {
+            if (xInvEntry < 0.0f)
+            {
+                normalx = 1.0f;
+                normaly = 0.0f;
+            }
+	        else
+            {
+                normalx = -1.0f;
+                normaly = 0.0f;
+            }
+        }
+        else
+        {
+            if (yInvEntry < 0.0f)
+            {
+                normalx = 0.0f;
+                normaly = 1.0f;
+            }
+	        else
+            {
+                normalx = 0.0f;
+		        normaly = -1.0f;
+            }
+        }
+
+        // return the time of collision
+        return entryTime;
+    }
 }

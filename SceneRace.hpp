@@ -29,6 +29,7 @@ private:
 	float _speed;
 
 	void setRotation(float rotation);
+	float SweptAABB(Player* p1, Player* p2, float& normalx, float& normaly);
 };
 
 
