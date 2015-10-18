@@ -60,12 +60,17 @@ void SceneRace::processInput() {
             std::cout<<"bñasldjasdf"<<std::endl;
            _game->start();
         }
+
+        /*
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
             setRotation(_rotation-0.2);
         }
+
+        */
+
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
             //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
             _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, 0));
