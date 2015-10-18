@@ -60,7 +60,7 @@ void TextButton::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void TextButton::onMouseEntered()
 {
-    const float light = 1.4f;
+    const float light = 0.66f;
     _shape.setOutlineColor(sf::Color(_outlineColor.r*light,
     _outlineColor.g*light,
     _outlineColor.b*light));
