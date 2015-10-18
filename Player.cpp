@@ -71,3 +71,13 @@ sf::Vector2f Player::move(float deltaTime) {
 	sf::Sprite::move(_velocity*deltaTime);
 	return getPosition()-_lastPosition;
 }
+float Player::boost() const
+{
+    return _boost;
+}
+
+void Player::setBoost(float boost)
+{
+    _boost = boost;
+}
+

@@ -28,13 +28,18 @@ public:
     sf::Vector2f move(float deltaTime);
 
 
+    float boost() const;
+    void setBoost(float boost);
+
 private:
     float _mass;
+    float _boost;
     bool _jumping;
     sf::Vector2f _velocity;
     sf::Vector2f _acceleration;
     sf::Vector2f _lastPosition;
     sf::FloatRect _bounds;
+
 };
 
 #endif // PLAYER_HPP
