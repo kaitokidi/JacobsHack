@@ -29,6 +29,7 @@ private:
 	sf::RectangleShape _rect2;
 	sf::RectangleShape _rect3;
 	sf::IntRect _groundBounds;
+	float _targetRotation;
 	float _rotation;
 	float _speed;
 

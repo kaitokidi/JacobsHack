@@ -107,8 +107,9 @@ void SceneRace::processInput() {
 
 
 void SceneRace::update(float deltaTime) {
-	int targetRot = std::rand()%10-5;
-	_rotation += targetRot*deltaTime;
+	if (std::abs(_targetRotation - _rotation) < 5) _targetRotation = std::rand()%50-25;
+	std::cout << _targetRotation << std::endl;
+	_rotation += normalize(_targetRotation)*deltaTime;
 	setRotation(_rotation);
 
 //	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::A)){_players[0].setJumping(false);}
