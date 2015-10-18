@@ -25,10 +25,10 @@ float Layer::getFactor(){
 }
 
 
-void Layer::setTexture(sf::Texture& texture1, int qtty ){
+void Layer::setTexture(std::vector<sf::Texture>& textures, int qtty ){
     for(int i = 0; i < qtty; ++i){
         sf::Sprite s;
-        s.setTexture(texture1);
+        s.setTexture(textures[i]);
         _sprites.push_back(s);
     }
     for(int i = 0; i < _sprites.size(); ++i){

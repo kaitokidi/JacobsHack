@@ -18,7 +18,7 @@ class Layer
 
         float getFactor();
 
-        void setTexture(sf::Texture& texture1, int qtty);/*, sf::Texture& texture2);*/
+        void setTexture(std::vector<sf::Texture>& textures, int qtty);/*, sf::Texture& texture2);*/
 
         void draw(sf::RenderTarget* renderTarget, sf::Transform* t);
 

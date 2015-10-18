@@ -4,22 +4,24 @@
 // sf::Shader             Resources::DtO;
  sf::Font               Resources::pauseMenuFont;
 
-sf::Texture             Resources::textureTest;
-sf::Texture             Resources::penguin;
-sf::Texture             Resources::penguin1;
-sf::Texture             Resources::penguin2;
-sf::Texture             Resources::penguin3;
-sf::Texture             Resources::penguin4;
-sf::Texture             Resources::layer0;
-sf::Texture             Resources::layer1;
-sf::Texture             Resources::layer2;
-sf::Texture             Resources::ice;
+sf::Texture               Resources::textureTest;
+sf::Texture               Resources::penguin;
+sf::Texture               Resources::penguin1;
+sf::Texture               Resources::penguin2;
+sf::Texture               Resources::penguin3;
+sf::Texture               Resources::penguin4;
+std::vector<sf::Texture>  Resources::layer0(1);
+std::vector<sf::Texture>  Resources::layer1(2);
+std::vector<sf::Texture>  Resources::layer2(2);
+sf::Texture               Resources::ice;
 
 void Resources::load() {
     ice.loadFromFile(TEXTURETPATH+std::string("ice.png"));
-    layer0.loadFromFile(TEXTURETPATH+std::string("layer0.png"));
-    layer1.loadFromFile(TEXTURETPATH+std::string("layer1.png"));
-    layer2.loadFromFile(TEXTURETPATH+std::string("layer2.png"));
+    layer0[0].loadFromFile(TEXTURETPATH+std::string("layer0.png"));
+    layer1[0].loadFromFile(TEXTURETPATH+std::string("layer10.png"));
+    layer1[1].loadFromFile(TEXTURETPATH+std::string("layer11.png"));
+    layer2[0].loadFromFile(TEXTURETPATH+std::string("layer20.png"));
+    layer2[1].loadFromFile(TEXTURETPATH+std::string("layer21.png"));
     textureTest.loadFromFile(TEXTURETPATH+std::string("textureTest.png"));
     penguin.loadFromFile(TEXTURETPATH+std::string("paintedpenguin.png"));
     penguin1.loadFromFile(TEXTURETPATH+std::string("penguin1.png"));
