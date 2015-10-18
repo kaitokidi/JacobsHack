@@ -10,6 +10,12 @@ SceneRace::SceneRace(Game* g, sf::RenderWindow* w) : Scene(g,w) {
 	_nPlayers = 4;
 	_rotation = 0;
 	_players = std::vector<Player>(_nPlayers);
+
+    _players[0].setTexture(Resources::penguin1);
+    _players[1].setTexture(Resources::penguin2);
+    _players[2].setTexture(Resources::penguin3);
+    _players[3].setTexture(Resources::penguin4);
+
 	// for (int i = 0; i < _nPlayers; ++i) _players[i].setPosition(i*40,40);
 	_background = new Background(displayResolution);
 
@@ -51,14 +57,18 @@ void SceneRace::processInput() {
             setRotation(_rotation-0.2);
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
-            _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -20));
+            //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
+            _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, 0));
+            _players[0].setAcceleration(sf::Vector2f(0,-200000));
             _players[0].setJumping(true);
 
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
             if(_nPlayers >= 1) {
-            	_players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, -20));
-            	_players[1].setJumping(true);
+//                _players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, -50));
+                _players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, 0));
+                _players[1].setAcceleration(sf::Vector2f(0,-200000));
+                _players[1].setJumping(true);
             }
         }
     }
@@ -67,8 +77,8 @@ void SceneRace::processInput() {
 
 void SceneRace::update(float deltaTime) {
 
-	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::A)){_players[0].setJumping(false);}
-	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::L)){ if(_nPlayers >= 1) _players[1].setJumping(false);}
+//	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::A)){_players[0].setJumping(false);}
+    //if(! sf::Keyboard::isKeyPressed(sf::Keyboard::L)){ if(_nPlayers >= 1) _players[1].setJumping(false);}
 
 	_rotation = (_rotation < 0 ? _rotation + 360 : (_rotation > 360? _rotation - 360 : _rotation) );
 	_speed += 0.5*sin(_rotation*TO_RADIANS)*TO_DEGREES*deltaTime;
@@ -88,35 +98,57 @@ void SceneRace::update(float deltaTime) {
 	else if(_rect3.getPosition().x  > 1.5*_view.getSize().x) _rect3.move( sf::Vector2f(-3*_view.getSize().x,0));
 
 	for (int i = 0; i < _nPlayers; ++i) {
-		float rot = _rotation > 180 ? _rotation - 360 : _rotation;
-		float maxRotation = 45;
-		float destination = (-rot+maxRotation)*_view.getSize().x/(maxRotation*2);
-		float newSpeed = 0.5f*_players[i].velocity().x + 0.5f*(destination - _players[i].getPosition().x);
+        //float maxRotation = 45;
+        float rot = _rotation > 180 ? _rotation - 360 : _rotation;
+        if(rot > 45 ) rot = 45;
+        if(rot < -45) rot = -45;
+
+        //float destination = (-rot+maxRotation)*_view.getSize().x/(maxRotation*2);
+
+//        std::cout << _players[i].velocity().x << " - " << _players[i].mass()*0.5 << " + " <<
+         //_players[i].mass()*0.8*(1- _players[i].getPosition().x/640) << " + " << -rot << std::endl;
+        float newSpeed =
+                _players[i].velocity().x
+                - _players[i].mass()*0.2
+                + _players[i].mass()*0.8*(1- _players[i].getPosition().x/640) *(-1*rot)
+                ;
+        newSpeed *= 10;
 		if(_players[i].jumping())newSpeed*=0.8;
-		_players[i].setVelocity(sf::Vector2f(newSpeed,_players[i].velocity().y+9*deltaTime));
+        newSpeed *= deltaTime;
+
+
+        float velY = _players[i].velocity().y + _players[i].acceleration().y * deltaTime;
+        _players[i].setAcceleration(sf::Vector2f(0, _players[i].acceleration().y + _players[i].mass()*2222 * deltaTime));
+
+        _players[i].setVelocity(sf::Vector2f(newSpeed,velY*deltaTime));
 		_players[i].move(deltaTime);
 		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
 			_players[i].setJumping(false);
-
+            _players[i].setVelocity(sf::Vector2f(_players[i].velocity().x, 0));
 		}
+        if(_players[i].getPosition().x < -250){
+            _players[i].setPosition(-200, _players[i].getPosition().y);
+            _players[i].setVelocity(sf::Vector2f(0,0));
+        }
         for(int p = 0; p < _players.size(); ++p){
 
             sf::IntRect colision;
             if(p != i){
                 if(_players[i].getMGlobalBounds().intersects(_players[p].getMGlobalBounds(), colision)){
-                    if(_players[i].velocity().x > 0){
-                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width,
-                                                _players[i].getPosition().y);
-                        _players[p].setVelocity(sf::Vector2f(
-                        	_players[p].velocity().x+_players[i].velocity().x*0.9,
-                        	_players[p].velocity().y));
+                    if(_players[i].velocity().y > 0){
+                        _players[i].setPosition(_players[i].getPosition().x, colision.top-_players[i].getMGlobalBounds().height);
+                    }
+                    else if(_players[i].velocity().y < 0){
+                        _players[i].setPosition(_players[i].getPosition().x, colision.top + colision.height);
+                    }
+                    else if(_players[i].velocity().x > 0){
+                        _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width, _players[i].getPosition().y);
+                        _players[p].setVelocity(sf::Vector2f( _players[p].velocity().x+_players[i].velocity().x*2, _players[p].velocity().y));
                     }
                     else {
                         _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
-                                                _players[p].setVelocity(sf::Vector2f(
-                                                	_players[p].velocity().x-_players[i].velocity().x*0.9,
-                                                _players[p].velocity().y));
+                        _players[p].setVelocity(sf::Vector2f( _players[p].velocity().x-_players[i].velocity().x*2, _players[p].velocity().y));
                     }
                 }
             }

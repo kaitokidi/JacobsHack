@@ -6,6 +6,7 @@ Player::Player() {
 	setPosition(30,30);
 	_bounds = sf::IntRect(0,0,50,20);
 	_velocity = sf::Vector2f(0,0);
+    _mass = 40;
 }
 
 Player::~Player(){
