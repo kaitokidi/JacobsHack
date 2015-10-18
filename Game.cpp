@@ -31,6 +31,7 @@ void Game::start() {
 
 void Game::changeScene(std::string nextSceneName, int nPlayers) { // This will be called by any scene when something trigers to change to anothe scene
     std::string sceneName = nextSceneName;
+    std::cout << "You want to change to: " << sceneName << std::endl;
     if (_currentScene != nullptr) {
         _lastScene = _currentScene;
         _currentScene->killScene();
