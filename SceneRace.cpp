@@ -87,11 +87,29 @@ void SceneRace::processInput() {
                 _players[1].setJumping(true);
             }
         }
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+            //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
+            if (_players[2].jumping()) continue;
+            _players[2].setVelocity(sf::Vector2f(_players[0].velocity().x, -200));
+            _players[2].setJumping(true);
+
+        }
+        else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
+            if(_nPlayers >= 1) {
+//                _players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, -50));
+            	if (_players[3].jumping()) continue;
+                _players[3].setVelocity(sf::Vector2f(_players[0].velocity().x, -200));
+                _players[3].setJumping(true);
+            }
+        }
     }
 }
 
 
 void SceneRace::update(float deltaTime) {
+	int targetRot = std::rand()%10-5;
+	_rotation += targetRot*deltaTime;
+	setRotation(_rotation);
 
 //	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::A)){_players[0].setJumping(false);}
     //if(! sf::Keyboard::isKeyPressed(sf::Keyboard::L)){ if(_nPlayers >= 1) _players[1].setJumping(false);}
