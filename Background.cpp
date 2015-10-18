@@ -4,17 +4,17 @@ Background::Background(sf::Vector2u targetSize) {
 	_pivot = sf::Vector2f(targetSize.x/2.0,targetSize.y/2.0);
 	_test.setTexture(Resources::textureTest);
 
-    layers.push_back(Layer(30));
-    layers.push_back(Layer(30));
-    layers.push_back(Layer(30));
+    layers.push_back(Layer(10));
+    layers.push_back(Layer(10));
+    layers.push_back(Layer(10));
 
     layers[0].setFactor(0.0);
-    layers[1].setFactor(0.5);
-    layers[2].setFactor(1);
+    layers[1].setFactor(0.3);
+    layers[2].setFactor(2.5);
 
-    layers[0].setTexture(Resources::layer0,2);
-    layers[1].setTexture(Resources::layer2,2);
-    layers[2].setTexture(Resources::layer1,2);
+    layers[0].setTexture(Resources::layer0,22);
+    layers[1].setTexture(Resources::layer2,22);
+    layers[2].setTexture(Resources::layer1,22);
 
 }
 

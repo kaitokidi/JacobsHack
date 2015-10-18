@@ -1,6 +1,10 @@
 #include "Game.hpp"
+#include "Portada.hpp"
+Game::Game() : _window(sf::VideoMode::getDesktopMode(),"TOPKeK", sf::Style::Fullscreen) {
 
-Game::Game() : _window(sf::VideoMode::getDesktopMode(),"TOPKeK", sf::Style::Close | sf::Style::Resize) {
+    Portada portada;
+    portada.display(&_window, "Resources/Textures/portada.png");
+    portada.display(&_window, "Resources/Textures/BEST.png");
     _window.setFramerateLimit(FRAMERATE);
     Resources::load();
     _currentScene = nullptr;

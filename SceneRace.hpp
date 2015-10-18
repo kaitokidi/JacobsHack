@@ -6,6 +6,10 @@
 #include "Background.hpp"
 #include "Player.hpp"
 
+#define TARGETRESOLUTIONX 640
+#define TARGETRESOLUTIONY 360
+
+
 class Game;
 class SceneRace : public Scene {
 public:
@@ -29,7 +33,6 @@ private:
 	float _speed;
 
 	void setRotation(float rotation);
-	float SweptAABB(Player* p1, Player* p2, float& normalx, float& normaly);
 };
 
 
