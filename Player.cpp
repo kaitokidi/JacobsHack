@@ -27,6 +27,7 @@ bool Player::jumping() const{
 }
 
 void Player::setJumping(bool jumping){
+	if (!jumping) _velocity.y =0;
     _jumping = jumping;
 }
 
@@ -56,8 +57,8 @@ void Player::setMass(float mass)
 }
 
 
-sf::IntRect Player::getMGlobalBounds() {
-    return sf::IntRect(getPosition().x + _bounds.left, getPosition().y + _bounds.top, _bounds.width, _bounds.height);
+sf::FloatRect Player::getMGlobalBounds() {
+    return sf::FloatRect(getPosition().x + _bounds.left, getPosition().y + _bounds.top, _bounds.width, _bounds.height);
 }
     
 

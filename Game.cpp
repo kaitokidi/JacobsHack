@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "Portada.hpp"
-Game::Game() : _window(sf::VideoMode::getDesktopMode(),"TOPKeK") {
+Game::Game() : _window(sf::VideoMode::getDesktopMode(),"TOPKeK", sf::Style::Fullscreen) {
 
     Portada portada;
     portada.display(&_window, "Resources/Textures/portada.png");

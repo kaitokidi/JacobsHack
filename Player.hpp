@@ -22,7 +22,7 @@ public:
     void setVelocity(const sf::Vector2f &velocity);
     void setAcceleration(const sf::Vector2f &acceleration);
 
-    sf::IntRect getMGlobalBounds();
+    sf::FloatRect getMGlobalBounds();
     sf::FloatRect getMBounds();
 
     sf::Vector2f move(float deltaTime);
