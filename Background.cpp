@@ -12,9 +12,9 @@ Background::Background(sf::Vector2u targetSize) {
     layers[1].setFactor(0.3);
     layers[2].setFactor(2.5);
 
-    layers[0].setTexture(Resources::layer0,2);
-    layers[1].setTexture(Resources::layer2,2);
-    layers[2].setTexture(Resources::layer1,2);
+    layers[0].setTexture(Resources::layer0,22);
+    layers[1].setTexture(Resources::layer2,22);
+    layers[2].setTexture(Resources::layer1,22);
 
 }
 
