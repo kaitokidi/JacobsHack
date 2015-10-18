@@ -50,19 +50,34 @@ void SceneRace::processInput() {
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
             setRotation(_rotation-0.2);
         }
+        else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+            _players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -20));
+            _players[0].setJumping(true);
+
+        }
+        else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
+            if(_nPlayers >= 1) {
+            	_players[1].setVelocity(sf::Vector2f(_players[1].velocity().x, -20));
+            	_players[1].setJumping(true);
+            }
+        }
     }
 }
 
 
 void SceneRace::update(float deltaTime) {
+
+	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::A)){_players[0].setJumping(false);}
+	if(! sf::Keyboard::isKeyPressed(sf::Keyboard::L)){ if(_nPlayers >= 1) _players[1].setJumping(false);}
+
 	_rotation = (_rotation < 0 ? _rotation + 360 : (_rotation > 360? _rotation - 360 : _rotation) );
 	_speed += 0.5*sin(_rotation*TO_RADIANS)*TO_DEGREES*deltaTime;
 	_speed = std::min(50.0f, std::max(_speed,-50.0f));
-    float groundSpeed = _rotation +5;
-    if(_rotation > 90) groundSpeed = 360 - _rotation +5;
-    _rect.move(sf::Vector2f(-groundSpeed,0));
-    _rect2.move(sf::Vector2f(-groundSpeed,0));
-    _rect3.move(sf::Vector2f(-groundSpeed,0));
+    float groundSpeed = std::min(50.0f, std::max(_rotation > 180 ? _rotation - 360 : _rotation,-50.0f));
+    //if(_rotation > 90) groundSpeed = 360 - _rotation +5;
+    _rect.move(sf::Vector2f(groundSpeed,0));
+    _rect2.move(sf::Vector2f(groundSpeed,0));
+    _rect3.move(sf::Vector2f(groundSpeed,0));
     _background->setSpeed(groundSpeed);
     _background->update(deltaTime);
 	if (_rect.getPosition().x  < -1.5*_view.getSize().x) _rect.move( sf::Vector2f(3*_view.getSize().x,0));
@@ -76,7 +91,8 @@ void SceneRace::update(float deltaTime) {
 		float rot = _rotation > 180 ? _rotation - 360 : _rotation;
 		float maxRotation = 45;
 		float destination = (-rot+maxRotation)*_view.getSize().x/(maxRotation*2);
-		float newSpeed = 0.6f*_players[i].velocity().x + 0.4f*(destination - _players[i].getPosition().x);
+		float newSpeed = 0.5f*_players[i].velocity().x + 0.5f*(destination - _players[i].getPosition().x);
+		if(_players[i].jumping())newSpeed*=0.8;
 		_players[i].setVelocity(sf::Vector2f(newSpeed,_players[i].velocity().y+9*deltaTime));
 		_players[i].move(deltaTime);
 		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
@@ -92,9 +108,15 @@ void SceneRace::update(float deltaTime) {
                     if(_players[i].velocity().x > 0){
                         _players[i].setPosition(colision.left-_players[i].getMGlobalBounds().width,
                                                 _players[i].getPosition().y);
+                        _players[p].setVelocity(sf::Vector2f(
+                        	_players[p].velocity().x+_players[i].velocity().x*0.9,
+                        	_players[p].velocity().y));
                     }
                     else {
                         _players[i].setPosition(colision.left+colision.width, _players[i].getPosition().y);
+                                                _players[p].setVelocity(sf::Vector2f(
+                                                	_players[p].velocity().x-_players[i].velocity().x*0.9,
+                                                _players[p].velocity().y));
                     }
                 }
             }
