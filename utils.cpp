@@ -78,3 +78,9 @@ sf::Vector2f getRelativeCenter(sf::Vector2f origen, sf::IntRect boundOr, sf::Int
 
     return final;
 }
+
+
+float normalize(float f) {
+    if (f == 0) return 0;
+    return f/std::abs(f);
+}
