@@ -3,7 +3,7 @@
 Label::Label(const std::string &text, sf::Font& font , Widget *parent) :Widget(parent) {
     _text.setFont(font);
     setText(text);
-    setTextColor(sf::Color(180,93,23));
+    setTextColor(sf::Color(0,0,204));
 }
 
 Label::~Label(){}

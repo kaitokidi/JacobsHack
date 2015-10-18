@@ -5,9 +5,9 @@ TextButton::TextButton(const std::string &text, sf::Font& font, Widget *parent)
 
     _label = Label (text, font, this);
 
-    setFillColor(sf::Color(80,20,19));
-    setOutlineThickness(5);
-    setOutlineColor(sf::Color(146,20,19));
+    setFillColor(sf::Color(153,204,255));
+    setOutlineThickness(2);
+    setOutlineColor(sf::Color(0,153,153));
 
 }
 
