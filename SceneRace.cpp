@@ -10,6 +10,7 @@ SceneRace::SceneRace(Game* g, sf::RenderWindow* w) : Scene(g,w) {
 	_nPlayers = 4;
 	_rotation = 0;
 	_players = std::vector<Player>(_nPlayers);
+	// for (int i = 0; i < _nPlayers; ++i) _players[i].setPosition(i*40,40);
 	_background = new Background(displayResolution);
 
 
@@ -73,25 +74,16 @@ void SceneRace::update(float deltaTime) {
 
 	for (int i = 0; i < _nPlayers; ++i) {
 		float rot = _rotation > 180 ? _rotation - 360 : _rotation;
-		float maxRotation = 70;
+		float maxRotation = 45;
 		float destination = (-rot+maxRotation)*_view.getSize().x/(maxRotation*2);
-		std::cout << "destination " << destination << std::endl;
-		float factor = 0.5;
-		if ((rot < 0 && destination - _players[i].getPosition().x < 0) ||
-			(rot > 0 && destination - _players[i].getPosition().x > 0)) {
-			factor = 0.1;
-			std::cout << rot << " " << destination - _players[i].getPosition().x << std::endl;
-		}
-		sf::Vector2f acceleration(factor*(destination - _players[i].getPosition().x),2);
-		_players[i].setAcceleration(acceleration);
-		_players[i].update(deltaTime);
-        sf::Vector2f oldPlayerPosition;
-        oldPlayerPosition = _players[i].getPosition();
+		float newSpeed = 0.6f*_players[i].velocity().x + 0.4f*(destination - _players[i].getPosition().x);
+		_players[i].setVelocity(sf::Vector2f(newSpeed,_players[i].velocity().y+9*deltaTime));
 		_players[i].move(deltaTime);
 		if (_players[i].getPosition().y > _groundBounds.top - _players[i].getMBounds().height) {
 			_players[i].setPosition(_players[i].getPosition().x, _groundBounds.top-_players[i].getMBounds().height);
-            _players[i].setJumping(false);
-        }
+			_players[i].setJumping(false);
+
+		}
         for(int p = 0; p < _players.size(); ++p){
 
             sf::IntRect colision;

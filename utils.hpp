@@ -68,4 +68,6 @@ bool isCollisioning(sf::Vector2f point1, float radius1, sf::Vector2f point2, flo
 
 sf::Vector2f getRelativeCenter(sf::Vector2f origen, sf::IntRect boundOr, sf::IntRect boundDest);
 
+float normalize(float f);
+
 #endif
