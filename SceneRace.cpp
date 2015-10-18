@@ -61,12 +61,17 @@ void SceneRace::processInput() {
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
            changeScene("Menu",0);
         }
+
+        /*
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
         }
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
             setRotation(_rotation-0.2);
         }
+
+        */
+
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
             //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
             if (_players[0].jumping()) continue;

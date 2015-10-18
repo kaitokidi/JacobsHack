@@ -32,7 +32,7 @@ void Layer::setTexture(std::vector<sf::Texture>& textures, int qtty ){
         _sprites.push_back(s);
     }
     for(int i = 0; i < _sprites.size(); ++i){
-        _sprites[i].setPosition(sf::Vector2f(_sprites[i].getGlobalBounds().width*-i,0));
+        _sprites[i].setPosition(sf::Vector2f(_sprites[i].getGlobalBounds().width*(-i+1),0));
     }
 }
 
@@ -45,14 +45,14 @@ void Layer::update(float deltatime){
     if(_speed < 0){
         for(int i = 0; i < _sprites.size(); ++i){
             if(_sprites[i].getPosition().x <= -1*(_sprites[i].getGlobalBounds().width)){
-                _sprites[i].setPosition(sf::Vector2f((_sprites[i].getGlobalBounds().width)*(_sprites.size()-1),0));
+                _sprites[i].setPosition(sf::Vector2f((_sprites[i].getGlobalBounds().width)*float((_sprites.size()-1)),0));
             }
         }
     }
     else if (_speed > 0){
         for(int i = 0; i < _sprites.size(); ++i){
             if(_sprites[i].getPosition().x >= (_sprites[i].getGlobalBounds().width)){
-                _sprites[i].setPosition(sf::Vector2f(-1*(_sprites[i].getGlobalBounds().width)*(_sprites.size()-1),0));
+                _sprites[i].setPosition(sf::Vector2f(-1.0*(_sprites[i].getGlobalBounds().width)*(float(_sprites.size()-i)),0));
             }
         }
     }
