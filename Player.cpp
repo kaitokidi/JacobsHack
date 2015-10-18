@@ -22,7 +22,6 @@ void Player::update(float deltatime){
 	// _velocity *= 0.95f;
     _velocity += _acceleration * deltatime;
 }
-
 bool Player::jumping() const{
     return _jumping;
 }

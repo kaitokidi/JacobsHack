@@ -61,7 +61,7 @@ void SceneRace::processInput() {
            _game->start();
         }
 
-        /*
+
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
             setRotation(_rotation+0.2);
         }
@@ -69,7 +69,7 @@ void SceneRace::processInput() {
             setRotation(_rotation-0.2);
         }
 
-        */
+
 
         else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
             //_players[0].setVelocity(sf::Vector2f(_players[0].velocity().x, -50));
